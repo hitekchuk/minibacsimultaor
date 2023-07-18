@@ -60,33 +60,39 @@ def determine_winner(player_cards, banker_cards):
     if player_total == 6 and banker_total == 6:
         return 'T'  # No further cards are drawn
     
-    if player_total <= 5:
+    if player_total <= 5 and banker_total == 6:
+        draw_card
         player_total += draw_card(player_cards)
-    
-    if banker_total <= 5:
-        if player_total >= 6:
+        if draw_card == 6 or 7:
+            draw_card
             banker_total += draw_card(banker_cards)
-        elif player_total <= 5:
-            if banker_total == 3:
-                if draw_card(player_cards) == 8:
-                    return 'B'
-                else:
-                    banker_total += draw_card(banker_cards)
-            elif banker_total == 4:
-                if draw_card(player_cards) in [2, 3, 4, 5, 6, 7]:
-                    return 'B'
-                else:
-                    banker_total += draw_card(banker_cards)
-            elif banker_total == 5:
-                if draw_card(player_cards) in [4, 5, 6, 7]:
-                    return 'B'
-                else:
-                    banker_total += draw_card(banker_cards)
-            elif banker_total == 6:
-                if draw_card(player_cards) in [6, 7]:
-                    return 'B'
-                else:
-                    banker_total += draw_card(banker_cards)
+    
+    if player_total <= 5 and banker_total == 5:
+        draw_card
+        player_total += draw_card(player_cards)
+        if draw_card == 4 or 5 or 6 or 7:
+            draw_card
+            banker_total += draw_card(banker_cards)
+            
+    if player_total <= 5 and banker_total == 4:
+        draw_card
+        player_total += draw_card(player_cards)
+        if draw_card == 2 or 3 or 4 or 5 or 6 or 7:
+            draw_card
+            banker_total += draw_card(banker_cards)
+    
+    if player_total <= 5 and banker_total == 3:
+        draw_card
+        player_total += draw_card(player_cards)
+        if draw_card == 0 or 1 or 2 or 3 or 4 or 5 or 6 or 7 or 9:
+            draw_card
+            banker_total += draw_card(banker_cards)
+    
+    if player_total <= 5 and banker_total < 3:
+        draw_card
+        player_total += draw_card(player_cards)
+        draw_card
+        banker_total += draw_card(banker_cards)
     
     if player_total > banker_total:
         return 'P'
